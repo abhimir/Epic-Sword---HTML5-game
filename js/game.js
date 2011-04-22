@@ -42,6 +42,17 @@ var sndPower = new Audio('snd/sword2.wav');
 var sndClick = new Audio('snd/click.wav');
 var sndDuck = new Audio('snd/duck.wav');
 */
+
+imgTile.addEventListener('load', function() {resourceLoaded(10)}, false);
+imgPlayer.addEventListener('load', function() {resourceLoaded(20)}, false);
+imgEnemy1.addEventListener('load', function() {resourceLoaded(10)}, false);
+imgSwordRight.addEventListener('load', function() {resourceLoaded(10)}, false);
+imgSwordLeft.addEventListener('load', function() {resourceLoaded(10)}, false);
+imgSkl.addEventListener('load', function() {resourceLoaded(10)}, false);
+imgSklLeft.addEventListener('load', function() {resourceLoaded(10)}, false);
+imgPlayerSkel.addEventListener('load', function() {resourceLoaded(10)}, false);
+imgCoin.addEventListener('load', function() {resourceLoaded(10)}, false);
+
 imgTile.src = 'img/tile.jpg';
 imgPlayer.src = 'img/player.png';
 imgEnemy1.src = 'img/enemy.png';
@@ -501,12 +512,3 @@ sndPower.addEventListener('canplay', resourceLoaded(5), false);
 sndClick.addEventListener('canplay', resourceLoaded(5), false);
 sndDuck.addEventListener('canplay', resourceLoaded(5), false);
 */
-imgTile.addEventListener('onload', resourceLoaded(10), false);
-imgPlayer.addEventListener('onload', resourceLoaded(20), false);
-imgEnemy1.addEventListener('onload', resourceLoaded(10), false);
-imgSwordRight.addEventListener('onload', resourceLoaded(10), false);
-imgSwordLeft.addEventListener('onload', resourceLoaded(10), false);
-imgSkl.addEventListener('onload', resourceLoaded(10), false);
-imgSklLeft.addEventListener('onload', resourceLoaded(10), false);
-imgPlayerSkel.addEventListener('onload', resourceLoaded(10), false);
-imgCoin.addEventListener('onload', resourceLoaded(10), false);

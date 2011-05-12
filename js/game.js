@@ -48,6 +48,11 @@ imgSklLeft.src = 'img/skel_left.png';
 imgPlayerSkel.src = 'img/player_skel.png';
 imgCoin.src = 'img/coin.png';
 
+/**
+ * update loop updates all game elements positions.
+ * it is called before the draw() function.
+ */
+
 function update() {
 	player.update();
 	if(power.active && collides(player, power)) {
@@ -134,6 +139,11 @@ function update() {
 	
 }
 
+/**
+ * draw loop is called after update().
+ * it draws all game elements in the canvas.
+ */
+
 function draw() {
 	fillBackground();
 	skels.forEach(function(skel) {
@@ -167,6 +177,10 @@ function draw() {
 	canvas.fillText('Record: ' + record, 240, 20);
 }
 
+/**
+ * power object draws a sword in the canvas to power up user swords
+ */
+
 var power = {
 	x: CANVAS_WIDTH / 2,
 	y: CANVAS_HEIGHT / 2 + (CANVAS_HEIGHT / 4),
@@ -198,6 +212,10 @@ var power = {
 		}
 	}
 }
+
+/**
+ * handles the player sprite updating and drawing it in the canvas
+ */
 
 var player = {
 	x: CANVAS_WIDTH / 2,
@@ -242,6 +260,10 @@ var player = {
 	}
 }
 
+/**
+ * create enemies
+ */
+
 function Enemy() {
 	var I = {};
 	I.x = 10;
@@ -284,6 +306,10 @@ function Enemy() {
 	return I;
 }
 
+/**
+ * draw the skel image when the player or an enemie is killed
+ */
+
 function Skel() {
 	var S = {}
 	S.x = 0;
@@ -307,6 +333,10 @@ function Skel() {
 	}
 	return S;
 }
+
+/**
+ * create coins
+ */
 
 function Coin() {
 	var C = {};
@@ -341,6 +371,11 @@ function Coin() {
 	};
 	return C;
 }
+
+/**
+ * create swords thrown by the player
+ */
+
 function Bullet() {
 	var B = {};
 	B.image = imgSwordRight;
@@ -370,6 +405,10 @@ function Bullet() {
 	return B;
 }
 
+/**
+ * function to fill the canvas background with the tile image
+ */
+
 function fillBackground() {
 	var x = 0;
 	var y = 0;
@@ -383,6 +422,9 @@ function fillBackground() {
 	}
 }
 
+/**
+ * handle keys to allow player's move
+ */
 
 document.onkeydown = function(e) {
 	if(e.keyCode == 39) {
@@ -448,12 +490,20 @@ document.onkeyup = function(e) {
 	if(e.keyCode == 40) key.down = false;
 }
 
+/**
+ * check collisions
+ */
+
 function collides(a, b) {
 	return 	a.x < b.x + b.width &&
 			a.x + a.width > b.x &&
 			a.y < b.y + b.height &&
 			a.y + a.height > b.y;
 }
+
+/**
+ * make the game start
+ */
 
 function startGame() {
 	swords = 20;
@@ -469,7 +519,10 @@ function startGame() {
 	}, 1000/FPS);
 }
 
-// loadbar
+/**
+ * display a load bar as game resources are being loaded
+ */
+
 function resourceLoaded(n) {
 	loadBar += n;
 	var x = loadBar * CANVAS_WIDTH / 100;

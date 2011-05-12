@@ -14,10 +14,7 @@ var loadBar = 0;
 var dificulty = 0.98;
 var gameOver = false;
 
-Number.prototype.clamp = function(min, max) {
-	return Math.min(Math.max(this, min), max);
-}
-
+// images
 var imgTile = new Image();
 var imgPlayer = new Image();
 var imgEnemy1 = new Image();
@@ -28,6 +25,7 @@ var imgSklLeft = new Image();
 var imgPlayerSkel = new Image();
 var imgCoin = new Image();
 
+// add event listenr to the images and display the load bar
 imgTile.addEventListener('load', function() {resourceLoaded(10)}, false);
 imgPlayer.addEventListener('load', function() {resourceLoaded(20)}, false);
 imgEnemy1.addEventListener('load', function() {resourceLoaded(10)}, false);
@@ -47,6 +45,14 @@ imgSkl.src = 'img/skel_right.png'
 imgSklLeft.src = 'img/skel_left.png';
 imgPlayerSkel.src = 'img/player_skel.png';
 imgCoin.src = 'img/coin.png';
+
+/**
+ * clamp player position into the canvas
+ */
+
+Number.prototype.clamp = function(min, max) {
+	return Math.min(Math.max(this, min), max);
+}
 
 /**
  * update loop updates all game elements positions.

@@ -73,7 +73,7 @@ function update() {
 	skels.forEach(function(skel) {
 		skel.update();
 	});
-	
+
 	enemies.forEach(function(enemy) {
 		bullets.forEach(function(bullet) {
 			if(bullet.active && collides(enemy, bullet)) {
@@ -85,7 +85,7 @@ function update() {
 				if(enemy.x > player.x) {
 					skel.image = imgSklLeft;
 				}
-				skels.push(skel); 
+				skels.push(skel);
 				score+=5;
 				if(Math.random() > 0.6) {
 					var coin = Coin();
@@ -96,27 +96,27 @@ function update() {
 			}
 		});
 	});
-	
+
 	coins.forEach(function(coin) {
 		if(collides(coin, player)) {
 			coin.active = false;
 			score+=10;
 		}
 	});
-	
+
 	enemies = enemies.filter(function(enemy) {
 		return enemy.active;
 	});
 	bullets = bullets.filter(function(bullet) {
 		return bullet.active;
-	});	
+	});
 	skels = skels.filter(function(skel) {
 		return skel.active;
 	});
 	coins = coins.filter(function(coin) {
 		return coin.active;
-	});	
-	
+	});
+
 	if(Math.random() > dificulty) {
 		enemy = Enemy();
 		enemy.y = Math.random() *  CANVAS_HEIGHT;
@@ -134,9 +134,9 @@ function update() {
 	});
 	if(score > record) record = score;
 	if(score > 50 && dificulty >= 0.98) dificulty = 0.97;
-	if(score > 100 && dificulty >= 0.97) dificulty = 0.96;	
+	if(score > 100 && dificulty >= 0.97) dificulty = 0.96;
 	if(score > 150 && dificulty >= 0.96) dificulty = 0.95;
-	
+
 }
 
 /**
@@ -153,7 +153,7 @@ function draw() {
 	power.draw();
 	coins.forEach(function(coin) {
 		coin.draw();
-	});	
+	});
 	enemies.forEach(function(enemy) {
 		enemy.draw();
 	});
@@ -163,10 +163,10 @@ function draw() {
 	if(gameOver) {
 		canvas.drawImage(imgPlayerSkel, player.x, player.y, imgPlayerSkel.width, imgPlayerSkel.height);
 		canvas.fillText("Game Over", CANVAS_WIDTH / 2 - 42, CANVAS_HEIGHT / 2 - 30);
-		canvas.fillText("(press spacebar to play again)", CANVAS_WIDTH / 2 - 115, CANVAS_HEIGHT / 2);		
+		canvas.fillText("(press spacebar to play again)", CANVAS_WIDTH / 2 - 115, CANVAS_HEIGHT / 2);
 	}
 	else {
-		player.draw();		
+		player.draw();
 	}
 	canvas.font = 'bold 16px sans-serif';
 	canvas.fillStyle = '#333';
@@ -242,10 +242,10 @@ var player = {
 		if(key.down) {
 			this.y += this.velocity;
 		}
-		
+
 		this.x = this.x.clamp(0, CANVAS_WIDTH - this.width);
 		this.y = this.y.clamp(0, CANVAS_HEIGHT - this.height);
-		
+
 		if(this.spriteTime <= 0) {
 			if(key.up || key.right || key.down || key.left) this.sprite = 1 - this.sprite;
 			this.spriteTime = 5;
@@ -255,8 +255,8 @@ var player = {
 		}
 	},
 	draw: function() {
-		canvas.drawImage(imgPlayer, (this.width * this.sprite) + this.spriteOffset, 0, 
-			this.width, this.height, this.x, this.y, this.width, this.height);	
+		canvas.drawImage(imgPlayer, (this.width * this.sprite) + this.spriteOffset, 0,
+			this.width, this.height, this.x, this.y, this.width, this.height);
 	}
 }
 
@@ -277,30 +277,30 @@ function Enemy() {
 	I.spriteTime = 5;
 	I.image = imgEnemy1;
 	I.update = function() {
-		if((player.x > this.x)) { 
+		if((player.x > this.x)) {
 			this.x += this.velocity;
 			this.spriteOffset = 0;
 		}
-		else if(player.x + player.width / 4 < this.x) { 
+		else if(player.x + player.width / 4 < this.x) {
 			this.x -= this.velocity;
 			this.spriteOffset = this.width * 2;
 		}
 		if(player.y > this.y) this.y += this.velocity - 1;
-		else if(player.y + player.height / 4 < this.y) this.y -= this.velocity - 1; 
-		
+		else if(player.y + player.height / 4 < this.y) this.y -= this.velocity - 1;
+
 		this.x = this.x.clamp(0, CANVAS_WIDTH - this.width);
 		this.y = this.y.clamp(0, CANVAS_HEIGHT - this.height);
-		
+
 		if(this.spriteTime <= 0) {
 			this.sprite = 1 - this.sprite;
 			this.spriteTime = 5;
 		}
 		else {
 			this.spriteTime--;
-		}	
+		}
 	};
 	I.draw = function() {
-		canvas.drawImage(this.image, (this.width * this.sprite) + this.spriteOffset, 0, 
+		canvas.drawImage(this.image, (this.width * this.sprite) + this.spriteOffset, 0,
 			this.width, this.height, this.x, this.y, this.width, this.height);
 	};
 	return I;
@@ -340,7 +340,7 @@ function Skel() {
 
 function Coin() {
 	var C = {};
-	
+
 	C.x = 0;
 	C.y = 0;
 	C.active = true;
@@ -366,7 +366,7 @@ function Coin() {
 		}
 	};
 	C.draw = function() {
-		canvas.drawImage(imgCoin, (this.sprite * this.width), 0, this.width, this.height, this.x, 
+		canvas.drawImage(imgCoin, (this.sprite * this.width), 0, this.width, this.height, this.x,
 			this.y, this.width, this.height);
 	};
 	return C;
@@ -389,13 +389,13 @@ function Bullet() {
 		right: false,
 		left: false
 	};
-	
+
 	B.update = function() {
 		if(this.direction.right) {
 			this.x += this.velocity;
 		}
 		else this.x -= this.velocity;
-		
+
 		if(this.x > CANVAS_WIDTH) this.active = false;
 		if(this.x + this.width < 0) this.active = false;
 	};
@@ -435,7 +435,7 @@ document.onkeydown = function(e) {
 	if(e.keyCode == 37) {
 		key.right = false;
 		key.left = true;
-		player.direction = 'left';		
+		player.direction = 'left';
 	}
 	if(e.keyCode == 38) {
 		key.up = true;
@@ -455,7 +455,7 @@ document.onkeydown = function(e) {
 			score = 0;
 			dificulty = 0.98;
 			player.x = CANVAS_WIDTH / 2;
-			player.y = CANVAS_HEIGHT / 3;		
+			player.y = CANVAS_HEIGHT / 3;
 			power.active = true;
 	//		sndMusic.play();
 			gameOver = false;
@@ -471,7 +471,7 @@ document.onkeydown = function(e) {
 			}
 			else {
 				bullet.direction.left = true;
-				bullet.image = imgSwordLeft;	
+				bullet.image = imgSwordLeft;
 				bullet.x = player.x;
 			}
 			bullet.y = player.y + player.height / 3;

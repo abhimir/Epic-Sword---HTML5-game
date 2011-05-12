@@ -47,6 +47,14 @@ imgPlayerSkel.src = 'img/player_skel.png';
 imgCoin.src = 'img/coin.png';
 
 /**
+ * check if there is a record stored
+ */
+
+if(localStorage['epic_sword.record'] != null) {
+	record = localStorage['epic_sword.record'];
+}
+
+/**
  * clamp player position into the canvas
  */
 
@@ -139,6 +147,9 @@ function update() {
 		coin.update();
 	});
 	if(score > record) record = score;
+	if(localStorage['epic_sword.record'] == null || localStorage['epic_sword.record'] < record) {
+		localStorage['epic_sword.record'] = record;	
+	}
 	if(score > 50 && dificulty >= 0.98) dificulty = 0.97;
 	if(score > 100 && dificulty >= 0.97) dificulty = 0.96;
 	if(score > 150 && dificulty >= 0.96) dificulty = 0.95;

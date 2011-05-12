@@ -13,13 +13,7 @@ var record = 0;
 var loadBar = 0;
 var dificulty = 0.98;
 var gameOver = false;
-// var extension = 'mp3'; // firefox does not support mp3
-/*
-var ua = navigator.userAgent.toLowerCase();
-if(ua.indexOf('applewebkit/') == -1) {
-	extension = 'ogg';
-}
-*/
+
 Number.prototype.clamp = function(min, max) {
 	return Math.min(Math.max(this, min), max);
 }
@@ -33,15 +27,6 @@ var imgSkl = new Image();
 var imgSklLeft = new Image();
 var imgPlayerSkel = new Image();
 var imgCoin = new Image();
-/*
-var sndMusic = new Audio('snd/dreams.'+extension);
-var sndScream = new Audio('snd/scream.wav');
-var sndSword = new Audio('snd/sword1.wav');
-var sndKill = new Audio('snd/kill.wav');
-var sndPower = new Audio('snd/sword2.wav');
-var sndClick = new Audio('snd/click.wav');
-var sndDuck = new Audio('snd/duck.wav');
-*/
 
 imgTile.addEventListener('load', function() {resourceLoaded(10)}, false);
 imgPlayer.addEventListener('load', function() {resourceLoaded(20)}, false);
@@ -66,7 +51,6 @@ imgCoin.src = 'img/coin.png';
 function update() {
 	player.update();
 	if(power.active && collides(player, power)) {
-	//	sndPower.play();
 		swords+=10;
 		power.active = false;
 		power.x = (Math.random() * CANVAS_WIDTH).clamp(50, CANVAS_WIDTH - 50 );
@@ -76,9 +60,6 @@ function update() {
 		enemy.update();
 		if(collides(player, enemy)) {
 			gameOver = true;
-	//		sndMusic.pause();
-	//		sndMusic.currentTime = 0;
-	//		sndScream.play();
 		}
 	});
 	bullets.forEach(function(bullet) {
@@ -101,7 +82,6 @@ function update() {
 				}
 				skels.push(skel); 
 				score+=5;
-			//	sndKill.play();
 				if(Math.random() > 0.6) {
 					var coin = Coin();
 					coin.x = enemy.x;
@@ -116,8 +96,6 @@ function update() {
 		if(collides(coin, player)) {
 			coin.active = false;
 			score+=10;
-		//	sndClick.pause();
-		//	sndClick.play();
 		}
 	});
 	
@@ -456,11 +434,9 @@ document.onkeydown = function(e) {
 			}
 			bullet.y = player.y + player.height / 3;
 			bullets.push(bullet);
-//			sndSword.play();
 			swords--;
 		}
 		else {
-//			sndDuck.play();
 		}
 	}
 }
@@ -480,8 +456,6 @@ function collides(a, b) {
 }
 
 function startGame() {
-//	sndMusic.loop = true;
-//	sndMusic.play();
 	swords = 20;
 	score = 0;
 	dificulty = 0.98;
@@ -503,12 +477,3 @@ function resourceLoaded(n) {
 	canvas.fillRect(0, 10, x, 10);
 	if(loadBar>=100) startGame();
 }
-/*
-sndMusic.addEventListener('canplay', resourceLoaded(15), false);
-sndScream.addEventListener('canplay', resourceLoaded(5), false);
-sndSword.addEventListener('canplay', resourceLoaded(5), false);
-sndKill.addEventListener('canplay', resourceLoaded(5), false);
-sndPower.addEventListener('canplay', resourceLoaded(5), false);
-sndClick.addEventListener('canplay', resourceLoaded(5), false);
-sndDuck.addEventListener('canplay', resourceLoaded(5), false);
-*/
